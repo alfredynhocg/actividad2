@@ -69,8 +69,3 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 });
-document.querySelectorAll(".footer a").forEach(link => {
-  link.addEventListener("click", () => {
-    alert("Red social en construcción 🚧");
-  });
-});
