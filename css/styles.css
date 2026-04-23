@@ -645,3 +645,30 @@ ul { list-style: none; }
   .footer__container { grid-template-columns: 1fr; }
   .about__team { grid-template-columns: repeat(3, 1fr); }
 }
+.footer {
+  background: #0B3C4D;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.footer a {
+  color: #00cfcf;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-copy {
+  margin-top: 15px;
+  font-size: 14px;
+}
