@@ -121,10 +121,60 @@ ul { list-style: none; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: rgba(255,255,255,0.92);
-  backdrop-filter: blur(8px);
+  background-color: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
+  transition: box-shadow 0.3s, transform 0.35s ease;
 }
+
+.header::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, #2563eb 0%, #7c3aed 50%, #2563eb 100%);
+  background-size: 200% 100%;
+  animation: accent-shimmer 4s linear infinite;
+}
+
+@keyframes accent-shimmer {
+  from { background-position: 0% 0; }
+  to   { background-position: 200% 0; }
+}
+
+.header.scrolled {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+
+.header__announce {
+  background: linear-gradient(90deg, #1d4ed8, #2563eb);
+  color: #fff;
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 0.45rem var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  position: relative;
+}
+.header__announce p { line-height: 1.4; }
+.header__announce strong { font-weight: 700; }
+.header__announce-close {
+  position: absolute;
+  right: var(--spacing-md);
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.2s;
+}
+.header__announce-close:hover { color: #fff; }
+.header__announce.hidden { display: none; }
 
 .nav {
   display: flex;
@@ -136,18 +186,106 @@ ul { list-style: none; }
 }
 
 .nav__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.25rem;
   font-weight: 800;
+  color: var(--color-text);
 }
-.nav__logo span { color: var(--color-primary); }
+.nav__logo-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+.nav__logo span:not(.nav__logo-icon) { color: var(--color-primary); }
 
 .nav__links {
   display: flex;
   gap: var(--spacing-md);
 }
-.nav__links a { font-weight: 500; transition: color 0.2s; }
+.nav__links a {
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.2s;
+}
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+  transition: width 0.25s ease;
+}
+.nav__links a:hover::after,
+.nav__links a.active::after { width: 100%; }
 .nav__links a:hover,
 .nav__links a.active { color: var(--color-primary); }
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav__toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-text);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav__toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav__toggle.open span:nth-child(2) { opacity: 0; }
+.nav__toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav__mobile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  overflow: hidden;
+  max-height: 0;
+  padding: 0 var(--spacing-md);
+  border-top: 1px solid transparent;
+  transition: max-height 0.35s ease, padding 0.3s ease, border-color 0.3s;
+}
+.nav__mobile ul { display: flex; flex-direction: column; gap: 0.25rem; }
+.nav__mobile a {
+  display: block;
+  padding: 0.65rem 0;
+  font-weight: 500;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  transition: color 0.2s;
+}
+.nav__mobile a:hover { color: var(--color-primary); }
+.nav__mobile .btn { margin-top: 0.5rem; }
+.nav__mobile.open {
+  max-height: 400px;
+  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-md);
+  border-top-color: var(--color-border);
+}
 
 /* ================================
    Hero
@@ -502,6 +640,7 @@ ul { list-style: none; }
 
 @media (max-width: 640px) {
   .nav__links { display: none; }
+  .nav__toggle { display: flex; }
   .hero__stats { gap: var(--spacing-md); }
   .footer__container { grid-template-columns: 1fr; }
   .about__team { grid-template-columns: repeat(3, 1fr); }
