@@ -9,17 +9,37 @@
 </head>
 <body>
 
-  <header class="header">
+  <header class="header" id="site-header">
+    <div class="header__announce" id="announce-bar">
+      <p>Oferta de lanzamiento: <strong>20% de descuento</strong> en proyectos nuevos durante abril</p>
+      <button class="header__announce-close" id="announce-close" aria-label="Cerrar anuncio">✕</button>
+    </div>
     <nav class="nav">
-      <div class="nav__logo">Nova<span>Build</span></div>
+      <a href="#hero" class="nav__logo">
+        <span class="nav__logo-icon">N</span>Nova<span>Build</span>
+      </a>
       <ul class="nav__links">
         <li><a href="#features">Servicios</a></li>
         <li><a href="#about">Nosotros</a></li>
         <li><a href="#testimonials">Clientes</a></li>
         <li><a href="#contact">Contacto</a></li>
       </ul>
-      <a href="#contact" class="btn btn--primary btn--sm">Empezar</a>
+      <div class="nav__actions">
+        <a href="#contact" class="btn btn--primary btn--sm">Empezar &rarr;</a>
+        <button class="nav__toggle" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </nav>
+    <div class="nav__mobile" id="mobile-menu">
+      <ul>
+        <li><a href="#features">Servicios</a></li>
+        <li><a href="#about">Nosotros</a></li>
+        <li><a href="#testimonials">Clientes</a></li>
+        <li><a href="#contact">Contacto</a></li>
+      </ul>
+      <a href="#contact" class="btn btn--primary btn--full">Empezar</a>
+    </div>
   </header>
 
   <main>
